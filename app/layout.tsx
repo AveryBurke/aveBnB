@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/navbar";
-
+import RegistarModal from "./components/modals/RegistarModal";
 // const inter = Inter({ subsets: ['latin'] })
 const jbm = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={jbm.className}>
+        <RegistarModal />
 				<Navbar />
 				{children}
 			</body>
