@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/navbar";
 import RegistarModal from "./components/modals/RegistarModal";
 import LoginModal from "./components/modals/LoginModal";
 import { getCurrentUser } from "./actions/getCurrentUser";
+import ToastProvider from "./providers/ToastProivder";
 // const inter = Inter({ subsets: ['latin'] })
 const jbm = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -18,6 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en">
 			<body className={jbm.className}>
+				<ToastProvider />
 				<LoginModal />
 				<RegistarModal />
 				<Navbar user = {currentUSer}/>

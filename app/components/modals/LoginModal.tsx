@@ -1,16 +1,16 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import Heading from "./Heading";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import Input from "../inputs/Input";
-import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const LoginModal = () => {
 	const router = useRouter();
@@ -27,16 +27,17 @@ const LoginModal = () => {
 		},
 	});
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		console.log({data})
 		setIsLoading(true);
 		signIn("credentials", { ...data, redirect: false }).then((callback) => {
 			if (callback?.ok) {
-				//toast. I don't like toast
+				//I don't like toast
+				toast.success("success!")
 				router.refresh();
 				loginModal.onClose();
 			}
 			if (callback?.error){
-				//toast.error(callback.error)
+				toast.error(callback.error)
+				setIsLoading(false);
 			}
 		});
 	};
