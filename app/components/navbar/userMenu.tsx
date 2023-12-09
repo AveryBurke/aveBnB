@@ -5,14 +5,14 @@ import Avatar from "../avatar";
 import MenuItem from "./menuItem";
 import useRegisterModal from "@/app/hooks/useRegistarModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
-	user?: User | null;
+	user?: UiUser | null;
 }
 
 const userMenu: React.FC<UserMenuProps> = ({ user }) => {
+	console.log({user})
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => {
 		setIsOpen(!isOpen);
@@ -45,7 +45,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
                     transtion">
 					<AiOutlineMenu />
 					<div className="hidden md:block">
-						<Avatar />
+						<Avatar src = {user?.image} />
 					</div>
 				</div>
 			</div>

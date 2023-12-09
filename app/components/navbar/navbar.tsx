@@ -3,10 +3,9 @@ import Container from "../container";
 import Logo from "../logo";
 import Search from "./search";
 import UserMenu from "./userMenu";
-import { User } from "@prisma/client";
 
 interface NavbarProps {
-	user?: User | null;
+	user?: UiUser | null;
 }
 
 const navbar:React.FC<NavbarProps> = ({user}) => {

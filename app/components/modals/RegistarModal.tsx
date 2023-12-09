@@ -10,9 +10,13 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Button from "../Button";
 import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import LoginModal from "./LoginModal";
 
 const RegistarModal = () => {
 	const registarModal = useRegistarModal();
+	const loginModal = useLoginModal();
 	const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
@@ -48,11 +52,17 @@ const RegistarModal = () => {
 
 	const footer = (
 		<div className="flex flex-col gap-2">
-			<Button label="continue with google" onClick={() => console.log("click")} outline disapbled={isLoading} icon={FcGoogle} />
-			<Button label="continue with github" onClick={() => console.log("click")} outline disapbled={isLoading} icon={AiFillGithub} />
+			<Button label="continue with google" onClick={() => signIn("google")} outline disapbled={isLoading} icon={FcGoogle} />
+			<Button label="continue with github" onClick={() => signIn("github")} outline disapbled={isLoading} icon={AiFillGithub} />
 			<span className=" font-light text-sm text-neutral-400">
 				already have an account?{" "}
-				<span onClick={registarModal.onClose} className="font-semibold hover:underline cursor-pointer">
+				<span
+					onClick={() => {
+						console.log('click')
+						registarModal.onClose();
+						loginModal.onOpen();
+					}}
+					className="font-semibold hover:underline cursor-pointer">
 					login
 				</span>
 			</span>

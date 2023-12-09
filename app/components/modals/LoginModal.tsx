@@ -46,14 +46,14 @@ const LoginModal = () => {
 		<div className="flex flex-col gap-2">
 			<Heading title="welcome back!" subtitle="log into your account" center></Heading>
 			<Input label="email" id="email" register={register} errors={errors} />
-			<Input label="password" id="password" register={register} errors={errors} />
+			<Input label="password" id="password" register={register} errors={errors} type="password" />
 		</div>
 	);
 
 	const footer = (
 		<div className="flex flex-col gap-2">
-			<Button label="continue with google" onClick={() => console.log("click")} outline disapbled={isLoading} icon={FcGoogle} />
-			<Button label="continue with github" onClick={() => console.log("click")} outline disapbled={isLoading} icon={AiFillGithub} />
+			<Button label="continue with google" onClick={() => signIn("google")} outline disapbled={isLoading} icon={FcGoogle} />
+			<Button label="continue with github" onClick={() => signIn("github")} outline disapbled={isLoading} icon={AiFillGithub} />
 		</div>
 	);
 
