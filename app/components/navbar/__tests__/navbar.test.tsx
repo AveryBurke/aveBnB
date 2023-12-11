@@ -22,5 +22,10 @@ describe("Navbar", () => {
             const userMenu = screen.getByTestId("user_menu_icon");
             expect(userMenu).toBeInTheDocument();
         });
+        it("should render the user avatar", () => {
+            render(<Navbar />);
+            const userMenu = screen.getByTestId("avatar");
+            expect(userMenu).toBeInTheDocument();
+        });
 	});
 });
