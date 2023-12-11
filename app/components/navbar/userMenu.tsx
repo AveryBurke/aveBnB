@@ -12,7 +12,6 @@ interface UserMenuProps {
 }
 
 const userMenu: React.FC<UserMenuProps> = ({ user }) => {
-	console.log({user})
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => {
 		setIsOpen(!isOpen);
@@ -28,6 +27,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 					AveBnB
 				</div>
 				<div
+					data-testid = "user_menu_icon"
 					onClick={toggle}
 					className="
                     p-4 
