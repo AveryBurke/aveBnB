@@ -37,8 +37,9 @@ const Input: React.FC<InputProps> = ({ id, label, type, disapbled, formatPrice, 
                         ${formatPrice ? "pl-9" : "pl-4"}
                         ${errors[id] ? "border-rose-500 focus:border-rose-500" : "border-neutral-300 focus:border-black"}`}
 			/>
-            {/* I hate the animation on the label. I hate animation that doens't convey information to the user.  But it's nice to know how to do CSS animiation in Tailwind */}
+            {/* I hate animation that doens't convey information to the user.  But it's nice to know how to do CSS animiation in Tailwind */}
 			<label
+                        htmlFor = {id}
 				className={`absolute 
                         text-md 
                         duration-150 
