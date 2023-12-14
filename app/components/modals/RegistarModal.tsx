@@ -57,7 +57,6 @@ const RegistarModal = () => {
 				already have an account?{" "}
 				<span
 					onClick={() => {
-						console.log("click");
 						registarModal.onClose();
 						loginModal.onOpen();
 					}}
