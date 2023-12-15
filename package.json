@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "postinstall": "prisma generate",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test": "yarn docker:up && sleep 1 && dotenv -e .env.test yarn prisma migrate deploy && jest -i && yarn docker:down",
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
@@ -15,6 +18,8 @@
     "@prisma/client": "^5.6.0",
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "react": "^18",
@@ -22,6 +27,7 @@
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.12.0",
+    "wait-on": "^7.2.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
