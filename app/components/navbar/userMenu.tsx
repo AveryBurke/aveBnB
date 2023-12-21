@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../avatar";
 import MenuItem from "./menuItem";
@@ -12,15 +12,28 @@ interface UserMenuProps {
 }
 
 const userMenu: React.FC<UserMenuProps> = ({ user }) => {
-	console.log({user})
+	const ref = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => {
 		setIsOpen(!isOpen);
 	};
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
+
+	//close the menu if either modal is open
+	useEffect(() => {
+		if (registerModal.isOpen || loginModal.isOpen) setIsOpen(false);
+	}, [registerModal.isOpen, loginModal.isOpen]);
+
+	//close the menu if the user clicks on something else
+	useEffect(() =>
+		window.addEventListener("click", (e) => {
+			if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false);
+		})
+	);
+
 	return (
-		<div className="relative">
+		<div ref={ref} className="relative">
 			<div className="flex flex-row items-center gap-3">
 				<div
 					className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
@@ -28,6 +41,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 					AveBnB
 				</div>
 				<div
+					data-testid="user_menu_icon"
 					onClick={toggle}
 					className="
                     p-4 
@@ -45,7 +59,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
                     transtion">
 					<AiOutlineMenu />
 					<div className="hidden md:block">
-						<Avatar src = {user?.image} />
+						<Avatar src={user?.image} />
 					</div>
 				</div>
 			</div>
@@ -65,11 +79,11 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 					<div className="flex flex-col cursor-pointer">
 						{user ? (
 							<>
-							<MenuItem {...{ callback: () => {}, label: "My Trips" }} />
-							<MenuItem {...{ callback: () => {}, label: "My Favroites" }} />
-							<MenuItem {...{ callback: () => {}, label: "My Properties" }} />
-							<MenuItem {...{ callback: () => {}, label: "Let AveBnB into my home" }} />
-							<MenuItem {...{ callback:signOut, label: "sign out" }} />
+								<MenuItem {...{ callback: () => {}, label: "My Trips" }} />
+								<MenuItem {...{ callback: () => {}, label: "My Favroites" }} />
+								<MenuItem {...{ callback: () => {}, label: "My Properties" }} />
+								<MenuItem {...{ callback: () => {}, label: "Let AveBnB into my home" }} />
+								<MenuItem {...{ callback: signOut, label: "sign out" }} />
 							</>
 						) : (
 							<>

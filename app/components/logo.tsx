@@ -4,6 +4,7 @@ import Image from "next/image";
 const logo = () => {
   return (
     <Image 
+        data-testid = "logo"
         alt='"Logo'
         className='hidden md:block cursor-pointer'
         height="50"

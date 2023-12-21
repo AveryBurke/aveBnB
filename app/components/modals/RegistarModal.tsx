@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Heading from "./Heading";
 import useRegistarModal from "../../hooks/useRegistarModal";
 import Input from "../inputs/Input";
@@ -12,7 +12,6 @@ import Button from "../Button";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import LoginModal from "./LoginModal";
 
 const RegistarModal = () => {
 	const registarModal = useRegistarModal();
@@ -58,7 +57,6 @@ const RegistarModal = () => {
 				already have an account?{" "}
 				<span
 					onClick={() => {
-						console.log('click')
 						registarModal.onClose();
 						loginModal.onOpen();
 					}}
