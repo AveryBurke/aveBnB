@@ -7,14 +7,10 @@ export async function POST(request: NextRequest) {
 	const { email, name, password }: { email: string; name: string; password: string } = body;
 	const hashPassword = await hash(password, 12);
 	const data = {email, name, hashPassword}
-	console.log({data})
 	const user = await prisma.user.create({
 		data: {
 			...data
 		},
-	});
-
-	console.log({user})
-
+	});	
 	return NextResponse.json(user);
 }
