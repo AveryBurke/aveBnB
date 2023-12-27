@@ -1,5 +1,18 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import Navbar from "../navbar";
+import { useRouter, useSearchParams } from "next/navigation";
+
+jest.mock("next/navigation");
+const pushMock = jest.fn();
+const mockGet = jest.fn();
+//@ts-ignore
+useRouter.mockReturnValue({
+	push: pushMock,
+});
+//@ts-ignore
+useSearchParams.mockReturnValue({
+	get: mockGet,
+});
 
 afterEach(() => {
 	cleanup();

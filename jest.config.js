@@ -11,19 +11,11 @@ const customJestConfig = {
 	testEnvironment: "jest-environment-jsdom",
 	preset: "ts-jest",
 	moduleDirectories: ["node_modules", "<rootDir>/"],
-	// moduleNameMapper: {
-	// 	"^@/(.*)$": "<rootDir>/app/$1",
-	// 	"@auth/(.*)": "<rootDir>/node_modules/@auth/$1"//jest confuses "@auth with @/auth. I'm not sure how to fix this other than hard coding it here"
-
-	// },
-	// transform: {
-	// 	'^.+\\.(ts|tsx)?$': 'ts-jest',
-	// 	"^.+\\.(js|jsx)$": "babel-jest"
-	//   },
-	transformIgnorePatterns: ["<rootDir>/node_modules/(?!(query-string)/)"],
 	moduleNameMapper: {
 		// Force module uuid to resolve with the CJS entry point, because Jest does not support package.json.exports. See https://github.com/uuidjs/uuid/issues/451
 		"@auth/(.*)": require.resolve("uuid"),
+		"^(\\.{1,2}/.*)\\.js$": "$1",
+		// "^@/*": "$1",
 	},
 };
 

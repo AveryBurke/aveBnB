@@ -19,7 +19,7 @@ afterAll(() => {
 
 describe("Register Post", () => {
 	describe("Behavior", () => {
-		it("should create a new userr", async () => {
+		it("should create a new user", async () => {
             const newUser = {name:"New User", email:"new@user.com", password:"newuser4life"}
 			function returnFromJson() {
 				return new Promise<any>((resolve, reject) => {
