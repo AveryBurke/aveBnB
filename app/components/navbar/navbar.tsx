@@ -3,6 +3,7 @@ import Container from "../container";
 import Logo from "../logo";
 import Search from "./search";
 import UserMenu from "./userMenu";
+import Categories from "./Categories";
 
 interface NavbarProps {
 	user?: UiUser | null;
@@ -20,6 +21,7 @@ const navbar:React.FC<NavbarProps> = ({user}) => {
 					</div>
 				</Container>
 			</div>
+			<Categories />
 		</div>
 	);
 }
