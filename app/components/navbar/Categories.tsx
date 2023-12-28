@@ -4,7 +4,7 @@ import Container from "../container";
 import CategoryBox from "../CategoryBox";
 import { IconType } from "react-icons";
 import { FaDumpster, FaGhost, FaHouseFire, FaBiohazard } from "react-icons/fa6";
-import { GiRadioTower, GiTank, GiBlackHoleBolas } from "react-icons/gi";
+import { GiRadioTower, GiTank, GiBlackHoleBolas, GiUndergroundCave } from "react-icons/gi";
 import { TbRadioactiveOff } from "react-icons/tb";
 import { useSearchParams } from "next/navigation";
 import { BsHousesFill } from "react-icons/bs";
@@ -56,17 +56,22 @@ export const categories: Category[] = [
     {
         location: "non-Euclidean",
         icon: SiHyperledger,
-        description: "This property has a an non-euclidean architecture!"
+        description: "This property has non-euclidean architecture!"
     },
     {
         location: "War Zone",
         icon: GiTank,
-        description: "This property in a war zone!"
+        description: "This property is located in a war zone!"
     },
     {
         location: "Parallel Universe",
         icon: GiBlackHoleBolas,
         description: "This property is in or near a parallel universe!"
+    },
+    {
+        location: "Under Ground",
+        icon: GiUndergroundCave,
+        description: "This property is deep within the bowles of the earth. Where mortal men fear to tred!"
     }
 ];
 

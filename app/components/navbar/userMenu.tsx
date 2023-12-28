@@ -3,9 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../avatar";
 import MenuItem from "./menuItem";
+import { signOut } from "next-auth/react";
+
 import useRegisterModal from "@/app/hooks/useRegistarModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { signOut } from "next-auth/react";
+import useRentModal from "@/app/hooks/useRentModal";
+
 
 interface UserMenuProps {
 	user?: UiUser | null;
@@ -19,6 +22,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 	};
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
+	const rentModal = useRentModal();
 
 	//close the menu if either modal is open
 	useEffect(() => {
@@ -32,12 +36,17 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 		})
 	);
 
+	const handleClick = () => {
+		if (!user) return loginModal.onOpen();
+		return rentModal.onOpen();
+	}
+
 	return (
 		<div ref={ref} className="relative">
 			<div className="flex flex-row items-center gap-3">
 				<div
 					className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-					onClick={() => console.log("click!")}>
+					onClick={handleClick}>
 					AveBnB
 				</div>
 				<div
@@ -82,7 +91,7 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 								<MenuItem {...{ callback: () => {}, label: "My Trips" }} />
 								<MenuItem {...{ callback: () => {}, label: "My Favroites" }} />
 								<MenuItem {...{ callback: () => {}, label: "My Properties" }} />
-								<MenuItem {...{ callback: () => {}, label: "Let AveBnB into my home" }} />
+								<MenuItem {...{ callback: rentModal.onOpen, label: "Let AveBnB into my home" }} />
 								<MenuItem {...{ callback: signOut, label: "sign out" }} />
 							</>
 						) : (
