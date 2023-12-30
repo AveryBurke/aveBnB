@@ -4,14 +4,11 @@ import Heading from "./Heading";
 import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
+import Counter from "../inputs/Counter";
 import useRentModal from "@/app/hooks/useRentModal";
 import { FieldValues, useForm } from "react-hook-form";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import Modal from "./Modal";
-import Button from "../Button";
-import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
+import dynamic from "next/dynamic";
 
 enum STEPS {
 	CATEGORY,
@@ -24,7 +21,6 @@ enum STEPS {
 }
 
 const RentModal = () => {
-	const router = useRouter();
 	const {
 		register,
 		watch,
@@ -41,10 +37,22 @@ const RentModal = () => {
 			bathroomCount: 0,
 			guestCount: 1,
 			locationValue: "",
-			price: 0,
+			price: 1,
 		},
 	});
+
 	const category = watch("category");
+	const location: FormatedCountry = watch("locationValue");
+	const price: number = watch("price");
+	const roomCount: number = watch("roomCount");
+	const bathroomCount: number = watch("bathroomCount");
+	const guestCount: number = watch("guestCount");
+	const description = watch("description");
+	const img = watch("imageSrc");
+
+	//Map is not supported in React, so it has to be dynamically reimported every time location changes
+	const Map = useMemo(() => dynamic(() => import("../Map"), { ssr: false }), [location]);
+
 	const setCustomValue = (id: string, value: any) => {
 		setValue(id, value, {
 			shouldDirty: true,
@@ -94,7 +102,39 @@ const RentModal = () => {
 			break;
 		case STEPS.INFO:
 			{
-				body = <div>inof step</div>;
+				body = (
+					<div className="flex flex-col gap-8">
+						<Heading title="Tell us more about your place" subtitle="Strangers want to know more!"></Heading>
+						<Counter
+							title="Price"
+							subtitle="How much do you charge guests per-night?"
+							value={price}
+							symbol="$"
+							onChange={(cPrice) => setCustomValue("price", cPrice)}
+						/>
+						<hr />
+						<Counter
+							title="Rooms"
+							subtitle="how many rooms does it have?"
+							value={roomCount}
+							onChange={(cRoomCount) => setCustomValue("roomCount", cRoomCount)}
+						/>
+						<hr />
+						<Counter
+							title="Bathrooms"
+							subtitle="how many bathrooms does it have?"
+							value={bathroomCount}
+							onChange={(cBathroomCount) => setCustomValue("bathroomCount", cBathroomCount)}
+						/>
+						<hr />
+						<Counter
+							title="Guests"
+							subtitle="How many guests do you allow?"
+							value={guestCount}
+							onChange={(cGuestCount) => setCustomValue("guestCount", cGuestCount)}
+						/>
+					</div>
+				);
 			}
 			break;
 		case STEPS.LOCATION:
@@ -102,7 +142,8 @@ const RentModal = () => {
 				body = (
 					<div className="flex flex-col gap-8">
 						<Heading title="Where is your place located?" subtitle="Strangers want to know!"></Heading>
-						<CountrySelect onChange={(value:FormatedCountry) => console.log(value)}/>
+						<CountrySelect value={location} onChange={(value) => setCustomValue("locationValue", value)} />
+						<Map center={location ? location.latlang : [51.505, -0.09]} zoom={location ? 4 : 2} />
 					</div>
 				);
 			}
@@ -122,24 +163,6 @@ const RentModal = () => {
 			body = <></>;
 			break;
 	}
-
-	// const footer = (
-	// 	<div className="flex flex-col gap-2">
-	// 		<Button label="continue with google" onClick={() => signIn("google")} outline disapbled={isLoading} icon={FcGoogle} />
-	// 		<Button label="continue with github" onClick={() => signIn("github")} outline disapbled={isLoading} icon={AiFillGithub} />
-	// 		<span className=" font-light text-sm text-neutral-400">
-	// 			first time here?{" "}
-	// 			<span
-	// 				onClick={() => {
-	// 					rentModal.onClose();
-	// 					rentModal.onOpen();
-	// 				}}
-	// 				className="font-semibold hover:underline cursor-pointer">
-	// 				sign up
-	// 			</span>
-	// 		</span>
-	// 	</div>
-	// );
 
 	const actionLabel = useMemo(() => {
 		if (step === STEPS.__LENGTH - 1) return "Create";

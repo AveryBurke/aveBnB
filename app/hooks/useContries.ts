@@ -12,7 +12,7 @@ const atlantis: FormatedCountry = {
 	value: "AA",
 	label: "Atlantis",
 	flag: "\u{1F41F}",
-	latlang: [0, 0],
+	latlang: [38.9, 25.2],
 	region: "Europe",
 };
 
@@ -20,7 +20,7 @@ const rlyeh: FormatedCountry = {
 	value: "RY",
 	label: "R'lyeh",
 	flag: "𖤐",
-	latlang: [52.6, 23.6],
+	latlang: [-48.876667, -123.393333],
 	region: "Nemo",
 };
 
