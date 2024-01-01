@@ -5,6 +5,7 @@ import CountrySelect from "../inputs/CountrySelect";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import Counter from "../inputs/Counter";
+import ImageUpload from '../inputs/ImageUpload'
 import useRentModal from "@/app/hooks/useRentModal";
 import { FieldValues, useForm } from "react-hook-form";
 import Modal from "./Modal";
@@ -155,7 +156,10 @@ const RentModal = () => {
 			break;
 		case STEPS.IMAGES:
 			{
-				body = <div>add images</div>;
+				body = <div className="flex flex-col gap-8">
+				<Heading title="What does your place look like?" subtitle="Help strangers spy on you!"></Heading>
+				<ImageUpload value={img} onChange={(cImage) => setCustomValue("imageSrc", cImage)}/>
+			</div>
 			}
 
 			break;
