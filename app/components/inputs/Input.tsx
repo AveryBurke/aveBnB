@@ -6,18 +6,19 @@ interface InputProps {
 	id: string;
 	label: string;
 	type?: string;
-	disapbled?: boolean;
+	disabled?: boolean;
 	formatPrice?: boolean;
 	required?: boolean;
 	register: UseFormRegister<FieldValues>;
 	errors: FieldErrors;
 }
 
-const Input: React.FC<InputProps> = ({ id, label, type, disapbled, formatPrice, required, register, errors }) => {
+const Input: React.FC<InputProps> = ({ id, label, type, disabled, formatPrice, required, register, errors }) => {
 	return (
 		<div className="w-full relative">
 			{formatPrice && <BiDollar size={24} className="text-neutral-700 absolute top-5 left-2" />}
 			<input
+                        disabled = {false}
 				id={id}
 				type={type}
 				{...register(id, { required })}
