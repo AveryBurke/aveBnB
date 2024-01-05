@@ -13,4 +13,12 @@ type MapDbObject<PT, From, To> = {
 declare global {
 	/** Ui safe user type. All Date types are swapped with string types are strings */
 	type UiUser = MapDbObject<User, Date, string>;
-};
+
+	type FormatedCountry = {
+		value: string;
+		label: string;
+		flag: string;
+		latlang: [number, number];
+		region: string;
+	};
+}

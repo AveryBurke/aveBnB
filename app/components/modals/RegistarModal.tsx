@@ -51,8 +51,8 @@ const RegistarModal = () => {
 
 	const footer = (
 		<div className="flex flex-col gap-2">
-			<Button label="continue with google" onClick={() => signIn("google")} outline disapbled={isLoading} icon={FcGoogle} />
-			<Button label="continue with github" onClick={() => signIn("github")} outline disapbled={isLoading} icon={AiFillGithub} />
+			<Button label="continue with google" onClick={() => signIn("google")} outline disabled={isLoading} icon={FcGoogle} />
+			<Button label="continue with github" onClick={() => signIn("github")} outline disabled={isLoading} icon={AiFillGithub} />
 			<span className=" font-light text-sm text-neutral-400">
 				already have an account?{" "}
 				<span
@@ -69,7 +69,7 @@ const RegistarModal = () => {
 
 	return (
 		<Modal
-			disapbled={isLoading}
+			disabled={isLoading}
 			isOpen={registarModal.isOpen}
 			title="register"
 			actionLabel="continue"

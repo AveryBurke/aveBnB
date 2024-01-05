@@ -9,7 +9,7 @@ interface NavbarProps {
 	user?: UiUser | null;
 }
 
-const navbar:React.FC<NavbarProps> = ({user}) => {
+const navbar: React.FC<NavbarProps> = ({ user }) => {
 	return (
 		<div className="w-full bg-white z-10">
 			<div className="border-[1px] shadow-sm">
@@ -17,13 +17,13 @@ const navbar:React.FC<NavbarProps> = ({user}) => {
 					<div className="flex flex-row items-center justify-between gap-3 md:gap-0">
 						<Logo />
 						<Search />
-						<UserMenu user = {user} />
+						<UserMenu user={user} />
 					</div>
 				</Container>
 			</div>
 			<Categories />
 		</div>
 	);
-}
+};
 
 export default navbar;

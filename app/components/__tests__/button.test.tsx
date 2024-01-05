@@ -25,7 +25,7 @@ describe("Button", () => {
 			expect(mockOnClick).toHaveBeenCalled();
 		});
 		it("should be able to be disapbled when prop is passed", () => {
-			render(<Button {...{ onClick: mockOnClick2, label: "test label", disapbled: true }} />);
+			render(<Button {...{ onClick: mockOnClick2, label: "test label", disabled: true }} />);
 			fireEvent.click(screen.getByRole("button"));
 			expect(mockOnClick2).not.toHaveBeenCalled();
 		});

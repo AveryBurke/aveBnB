@@ -1,6 +1,5 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import Navbar from "../navbar";
-import Logo from "../../logo"
 import { useRouter, useSearchParams } from "next/navigation";
 
 jest.mock("next/navigation");

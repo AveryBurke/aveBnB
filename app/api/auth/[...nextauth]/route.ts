@@ -8,7 +8,6 @@ import { compare } from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
 	adapter: (function async(){
-		// console.log({prisma,PrismaAdapter})
 		return PrismaAdapter(prisma)})(),
 	providers: [
 		GithubProvider({ clientId: (process.env.GITHUB_ID as string) || "", clientSecret: (process.env.GITHUB_SECRET as string) || "" }),
