@@ -49,7 +49,6 @@ const RentModal = () => {
 
 	const category = watch("category");
 	const location: FormatedCountry = watch("locationValue");
-	const price: number = watch("price");
 	const roomCount: number = watch("roomCount");
 	const bathroomCount: number = watch("bathroomCount");
 	const guestCount: number = watch("guestCount");
@@ -67,7 +66,7 @@ const RentModal = () => {
 	};
 	const rentModal = useRentModal();
 	const rounter = useRouter();
-	const [step, setStep] = useState(STEPS.CATEGORY);
+	const [step, setStep] = useState<STEPS>(0);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const onBack = () => {
@@ -100,7 +99,7 @@ const RentModal = () => {
 			{
 				body = (
 					<div className="flex flex-col gap-8">
-						<Heading title="which of these best describes your place?" subtitle="Pick a category" center />
+						<Heading data-testid="first" title="which of these best describes your place?" subtitle="Pick a category" center />
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
 							{categories.map((cat, i) => {
 								return (

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "@/app/actions/getCurrentUser";
+import { getCurrentUser } from "../../actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 		price,
 	} = body;
 
-	//TODO VALIDATE BODY
+	//TODO VALIDATE BODY	
 
 	const listing = await prisma.listing.create({
 		data: {
