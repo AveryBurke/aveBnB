@@ -8,7 +8,6 @@ export async function getSession(): Promise<Session | null | undefined> {
 }
 
 export async function getCurrentUser(): Promise<UiUser | null> {
-	console.log("calling get user with test env ", process.env.TEST_USER_NAME);
 	try {
 		const session = await getSession();
 		if (!session?.user?.email) return null;
