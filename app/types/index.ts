@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User, Listing } from "@prisma/client";
 
 /** utility types */
 
@@ -11,8 +11,11 @@ type MapDbObject<PT, From, To> = {
 };
 
 declare global {
-	/** Ui safe user type. All Date types are swapped with string types are strings */
+	/** Ui safe User type. All Date types are swapped with string types */
 	type UiUser = MapDbObject<User, Date, string>;
+
+	/** Ui safe Listing type. All Date types are swapped with string types */
+	type UiListing = MapDbObject<Listing, Date, string>;
 
 	type FormatedCountry = {
 		value: string;

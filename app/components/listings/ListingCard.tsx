@@ -9,7 +9,7 @@ import HeartButton from "../HeartButton";
 import Button from "../Button";
 
 interface ListingCardProps {
-	data: Listing;
+	data: UiListing;
 	reservation?: Reservation;
 	onAction?: (id: string) => void;
 	disabled?: boolean;
