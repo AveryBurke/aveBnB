@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter,  } from "next/navigation";
 import { useMemo, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import useLoginModal from "./useLoginModal";
+
 
 interface IUseFavorite {
 	listingId: string;
@@ -10,6 +10,7 @@ interface IUseFavorite {
 }
 
 export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
+	const base = process.env.NEXT_PUBLIC_BASE_URL
 	const router = useRouter();
 	const loginModal = useLoginModal();
 
@@ -24,11 +25,25 @@ export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
 			if (!currentUser) return loginModal.onOpen();
 			try {
-				let request: () => Promise<Request>;
+				let request: () => Promise<Response>;
 				if (hasFavorited) {
-					request = () => axios.delete(`api/favorites/${listingId}`);
+					request = () =>
+						fetch(`${base}/api/favorites/${listingId}`, {
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: null,
+						});
 				} else {
-					request = () => axios.post(`api/favorites/${listingId}`);
+					request = () =>
+						fetch(`${base}/api/favorites/${listingId}`, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: null,
+						});
 				}
 				await request();
 				toast.success("Success!");

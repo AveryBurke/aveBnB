@@ -24,4 +24,12 @@ declare global {
 		latlang: [number, number];
 		region: string;
 	};
+
+	interface IParams {
+		listingId?: string;
+	}
+
+	interface UiListingWithUiUser extends UiListing {
+		user:UiUser
+	}
 }

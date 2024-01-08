@@ -1,11 +1,11 @@
 "use client";
-import { Listing, Reservation } from "@prisma/client";
+import { Reservation } from "@prisma/client";
 import useCountries from "@/app/hooks/useContries";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import Image from "next/image";
-import HeartButton from "../HeartButton";
+import HeartButton from "./HeartButton";
 import Button from "../Button";
 
 interface ListingCardProps {
@@ -49,17 +49,17 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
 				<div className="aspect-square w-full relative overflow-hidden rounded-xl">
 					<Image
 						/*
-							NOTE: something is wrong with the fill prop. If I use fill the image does not show up and I get an errro
-							to the effect that I need to also use the sizes prop if I am going to use the fill prop.
-							if I use the sizes prop I get a warning that the image has no height. this warning does not go away
-							even if I supply an explicit hight for all the parent divs
+							NOTE: I was having trouble getting these images to show up. I assumed this had to do with a warinig
+							I was getting: "warn-once.js:16 Image with src ... has "fill" but is missing "sizes" prop. Please add it to improve page performance"
+							Adding the "sizes" prop lead to a further warning that the parent component didn't have a height. this wanring didn't go away once I added an explicit height to the all parents in the tree.
+							finally I rearanged the order of the props and the images showed up.
+							This can't be due to the order of the prosp, as they are stored in a JS object. The only thing I can think is that I was seeing weird caching behavior
+							I still have the warning about the "sizes" prop, but it's just a warning
 						*/
-						// fill
-						width={250}
-						height={250}
-						className="object-cover h-full w-full group-hover:scale-110 transition"
-						src={data.imageSrc}
 						alt="Listing"
+						src={data.imageSrc}
+						fill
+						className="object-cover w-full group-hover:scale-110 transition"
 					/>
 					<div className="absolute top-3 right-3">
 						<HeartButton listingId={data.id} currentUser={currentUser} />
@@ -73,7 +73,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
 					<div className=" font-semibold">${price}</div>
 					{!reservation && <div className="font-light">night</div>}
 				</div>
-				{onAction && actionLabel && <Button disabled={disabled} sm label={actionLabel} onClick={hanldeCancel}/>}
+				{onAction && actionLabel && <Button disabled={disabled} sm label={actionLabel} onClick={hanldeCancel} />}
 			</div>
 		</div>
 	);
