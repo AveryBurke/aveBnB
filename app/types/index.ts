@@ -1,4 +1,5 @@
 import { User, Listing } from "@prisma/client";
+import {IconType} from 'react-icons'
 
 /** utility types */
 
@@ -23,6 +24,12 @@ declare global {
 		flag: string;
 		latlang: [number, number];
 		region: string;
+	};
+
+	type Category = {
+		location: string;
+		icon: IconType;
+		description: string;
 	};
 
 	interface IParams {

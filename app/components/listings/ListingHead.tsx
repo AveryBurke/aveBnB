@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import useCountries from "@/app/hooks/useContries";
+import useCountries from "@/app/hooks/useCountries";
 import Heading from "../modals/Heading";
 import Image from "next/image";
 import HeartButton from "./HeartButton";
