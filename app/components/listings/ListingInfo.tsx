@@ -37,7 +37,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({ user, roomCount, bathroomCoun
 			{category && <ListingCategory {...{ category }} />}
 			<hr />
 			<div className="text-lg font-light text-neutral-500">{description}</div>
-			{coords && <Map center={coords} zoom={4} />}
+			{coords && <Map center={coords} zoom={8} />}
 		</div>
 	);
 };

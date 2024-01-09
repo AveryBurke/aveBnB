@@ -1,5 +1,5 @@
 import { User, Listing } from "@prisma/client";
-import {IconType} from 'react-icons'
+import { IconType } from "react-icons";
 
 /** utility types */
 
@@ -37,6 +37,6 @@ declare global {
 	}
 
 	interface UiListingWithUiUser extends UiListing {
-		user:UiUser
+		user: UiUser;
 	}
 }
