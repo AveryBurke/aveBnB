@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import UserMenu from "../UserMenu";
+import UserMenu from "../userMenu";
 
 const mockUser: UiUser = {
 	id: "",
