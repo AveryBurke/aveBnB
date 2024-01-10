@@ -1,14 +1,9 @@
-import { renderHook, render, screen, cleanup, fireEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Button from "../Button";
-import exp from "constants";
+
 
 const mockOnClick = jest.fn();
 const mockOnClick2 = jest.fn();
-
-afterEach(() => {
-	cleanup();
-});
 
 describe("Button", () => {
 	describe("Render", () => {

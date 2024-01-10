@@ -1,4 +1,4 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Modal from "../Modal";
 
 const mockSubmit = jest.fn();
@@ -6,10 +6,6 @@ const mockClose = jest.fn();
 
 //the close event is delayed by 300ms to accomidate animation
 jest.useFakeTimers();
-
-afterEach(() => {
-	cleanup();
-});
 
 describe("Modal", () => {
 	describe("Render", () => {

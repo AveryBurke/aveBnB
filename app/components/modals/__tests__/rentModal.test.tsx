@@ -1,4 +1,4 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import RentModal from "../RentModal";
 // import * as axios from "axios";
@@ -15,10 +15,6 @@ useRouter.mockReturnValue({
 //@ts-ignore
 
 jest.useFakeTimers();
-
-afterEach(() => {
-	cleanup();
-});
 
 describe("RentModal", () => {
 	describe("Render", () => {

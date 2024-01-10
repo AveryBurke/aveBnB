@@ -14,7 +14,7 @@ interface UserMenuProps {
 	user?: UiUser | null;
 }
 
-const userMenu: React.FC<UserMenuProps> = ({ user }) => {
+const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => {
@@ -107,4 +107,4 @@ const userMenu: React.FC<UserMenuProps> = ({ user }) => {
 	);
 };
 
-export default userMenu;
+export default UserMenu;

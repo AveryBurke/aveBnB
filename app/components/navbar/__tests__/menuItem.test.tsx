@@ -1,9 +1,6 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import MenuItem from "../menuItem";
 const mockAction = jest.fn();
-afterEach(() => {
-	cleanup();
-});
 
 describe("MenuItem", () => {
 	describe("Render", () => {

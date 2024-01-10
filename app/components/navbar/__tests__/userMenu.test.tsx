@@ -1,9 +1,5 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import UserMenu from "../userMenu";
-
-afterEach(() => {
-	cleanup();
-});
+import { render, screen, fireEvent } from "@testing-library/react";
+import UserMenu from "../UserMenu";
 
 const mockUser: UiUser = {
 	id: "",

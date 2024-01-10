@@ -52,7 +52,7 @@ export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 				toast.error("somthing went wrong");
 			}
 		},
-		[currentUser, listingId, hasFavorited, loginModal, router]
+		[currentUser, listingId, hasFavorited, loginModal, router, base]
 	);
 	return { hasFavorited, toggleFavorited };
 };
