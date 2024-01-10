@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const logo = () => {
+const Logo = () => {
 	const rounter = useRouter();
 	return (
 		<Image
@@ -18,4 +18,4 @@ const logo = () => {
 	);
 };
 
-export default logo;
+export default Logo;

@@ -1,11 +1,7 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { useFavorite } from "../../../hooks/useFavorite";
 import HeartButton from "../HeartButton";
 import { useRouter } from "next/navigation";
-
-afterEach(() => {
-	cleanup();
-});
 
 jest.mock("next/navigation");
 jest.mock("../../../hooks/useFavorite");

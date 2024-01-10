@@ -54,8 +54,9 @@ const RentModal = () => {
 	const guestCount: number = watch("guestCount");
 	const img = watch("imageSrc");
 
-	//Map is not supported in React, so it has to be dynamically reimported every time location changes
-	const Map = useMemo(() => dynamic(() => import("../Map"), { ssr: false }), [location]);
+	// Map is not supported in React, so it has to be dynamically reimported every time location changes
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const Map = useMemo(() => dynamic(() => import("../Map"), { ssr: false }), [location]); 
 
 	const setCustomValue = (id: string, value: any) => {
 		setValue(id, value, {

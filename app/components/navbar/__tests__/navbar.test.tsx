@@ -1,4 +1,4 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Navbar from "../navbar";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -13,11 +13,6 @@ useRouter.mockReturnValue({
 useSearchParams.mockReturnValue({
 	get: mockGet,
 });
-
-afterEach(() => {
-	cleanup();
-});
-
 
 describe("Navbar", () => {
 	describe("Render", () => {

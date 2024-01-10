@@ -1,4 +1,4 @@
-import { renderHook, render, screen, cleanup } from "@testing-library/react";
+import { renderHook, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FieldValues, useForm } from "react-hook-form";
 import Input from "../Input";
@@ -12,10 +12,6 @@ const { result } = renderHook(() =>
 		},
 	})
 );
-
-afterEach(() => {
-	cleanup();
-});
 
 describe("Input", () => {
 	describe("Render", () => {

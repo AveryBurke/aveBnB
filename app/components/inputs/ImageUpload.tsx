@@ -19,7 +19,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
 		(res: any) => {
 			onChange(res.info.secure_url);
 		},
-		[onchange]
+		[onChange]
 	);
 	return (
 		<CldUploadWidget onUpload={handleUpload} uploadPreset="dzaxdhcb" options={{ maxFiles: 1 }}>

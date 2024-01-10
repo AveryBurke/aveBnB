@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../container";
 import Logo from "../logo";
 import Search from "./search";
-import UserMenu from "./userMenu";
+import UserMenu from "./UserMenu";
 import Categories from "./Categories";
 
 interface NavbarProps {
