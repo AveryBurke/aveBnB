@@ -10,11 +10,11 @@ interface HeartButtonProps {
 
 const HeartButton: React.FC<HeartButtonProps> = ({ listingId, currentUser }) => {
 	const { hasFavorited, toggleFavorited } = useFavorite({ listingId, currentUser });
-	const fav = useMemo(() => hasFavorited,[hasFavorited])
+	const fav = useMemo(() => hasFavorited, [hasFavorited]);
 	return (
-		<div onClick={toggleFavorited} className=" relative hover:opacity-80 cursor-pointer transition">
+		<div data-testid="heart-button" onClick={toggleFavorited} className="relative hover:opacity-80 cursor-pointer transition">
 			<AiOutlineHeart size={28} className="fill-white absolute -top-[2px] -right-[2px]" />
-			<AiFillHeart size={24} className={fav ? "fill-rose-500" : "fill-neutral-500/70"} />
+			<AiFillHeart data-testid="inner-heart" size={24} className={fav ? "fill-rose-500" : "fill-neutral-500/70"} />
 		</div>
 	);
 };

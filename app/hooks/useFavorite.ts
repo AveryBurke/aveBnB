@@ -1,8 +1,7 @@
-import { useRouter,  } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useMemo, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import useLoginModal from "./useLoginModal";
-
 
 interface IUseFavorite {
 	listingId: string;
@@ -10,7 +9,7 @@ interface IUseFavorite {
 }
 
 export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
-	const base = process.env.NEXT_PUBLIC_BASE_URL
+	const base = process.env.NEXT_PUBLIC_BASE_URL;
 	const router = useRouter();
 	const loginModal = useLoginModal();
 
@@ -36,6 +35,7 @@ export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 							body: null,
 						});
 				} else {
+					console.log("psot request to ", `${base}/api/favorites/${listingId}`)
 					request = () =>
 						fetch(`${base}/api/favorites/${listingId}`, {
 							method: "POST",
