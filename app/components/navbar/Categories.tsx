@@ -2,7 +2,6 @@
 import React from "react";
 import Container from "../container";
 import CategoryBox from "../CategoryBox";
-import { IconType } from "react-icons";
 import { FaDumpster, FaGhost, FaHouseFire, FaBiohazard } from "react-icons/fa6";
 import { GiRadioTower, GiTank, GiBlackHoleBolas, GiUndergroundCave } from "react-icons/gi";
 import { TbRadioactiveOff } from "react-icons/tb";
@@ -11,11 +10,7 @@ import { BsHousesFill } from "react-icons/bs";
 import { SiHyperledger } from "react-icons/si";
 
 
-type Category = {
-	location: string;
-	icon: IconType;
-	description: string;
-};
+
 
 export const categories: Category[] = [
     { 

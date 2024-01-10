@@ -1,4 +1,5 @@
-import { User } from "@prisma/client";
+import { User, Listing } from "@prisma/client";
+import { IconType } from "react-icons";
 
 /** utility types */
 
@@ -11,8 +12,11 @@ type MapDbObject<PT, From, To> = {
 };
 
 declare global {
-	/** Ui safe user type. All Date types are swapped with string types are strings */
+	/** Ui safe User type. All Date types are swapped with string types */
 	type UiUser = MapDbObject<User, Date, string>;
+
+	/** Ui safe Listing type. All Date types are swapped with string types */
+	type UiListing = MapDbObject<Listing, Date, string>;
 
 	type FormatedCountry = {
 		value: string;
@@ -21,4 +25,18 @@ declare global {
 		latlang: [number, number];
 		region: string;
 	};
+
+	type Category = {
+		location: string;
+		icon: IconType;
+		description: string;
+	};
+
+	interface IParams {
+		listingId?: string;
+	}
+
+	interface UiListingWithUiUser extends UiListing {
+		user: UiUser;
+	}
 }

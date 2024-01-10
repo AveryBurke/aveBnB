@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Select from "react-select";
-import useContries from "@/app/hooks/useContries";
+import useContries from "@/app/hooks/useCountries";
 
 interface CountrySelectProps {
 	value?: FormatedCountry;

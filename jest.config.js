@@ -18,6 +18,10 @@ const customJestConfig = {
 		"^(\\.{1,2}/.*)\\.js$": "$1",
 		// "^@/*": "$1",
 	},
+	// jest removes fetch from jsdom. but I need to mock fetch calls, so I have to add it back
+	globals: {
+		fetch: global.fetch,
+	  }
 };
 
 // createJestConfig is exported in this way to ensure that next/jest can load the Next.js configuration, which is async
