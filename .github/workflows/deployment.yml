@@ -10,6 +10,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run tests
+        id: dotenv
+        uses: ./.github/actions/dotenv-action
         run: yarn test
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
