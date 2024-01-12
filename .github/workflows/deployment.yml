@@ -12,9 +12,9 @@ jobs:
       - name: Run tests
         # id: dotenv
         # uses: ./.github/actions/dotenv-action
-        run: yarn test
         with:
           env-file: .env.test
+        run: yarn test
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
