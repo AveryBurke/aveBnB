@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run tests
         # id: dotenv
-        # uses: ./.github/actions/dotenv-action
+        uses: ./.github/actions/dotenv-action
         with:
           env-file: .env.test
         run: yarn test
