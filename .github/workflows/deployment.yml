@@ -9,11 +9,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Checkout dotenv
+        uses: ./.github/actions/dotenv-action
       - name: Run tests
         # id: dotenv
-        uses: ./.github/actions/dotenv-action
-        with:
-          env-file: .env.test
+        # uses: ./.github/actions/dotenv-action
+        # with:
+        #   env-file: .env.test
         run: yarn test
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
