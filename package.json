@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "test": "yarn docker:up && sleep 1 && yarn prisma migrate deploy && prisma db seed && jest -i && yarn docker:down",
+    "test": "yarn docker:up && sleep 1 && dotenv -e .env.test yarn prisma migrate deploy && dotenv -e .env.test prisma db seed && dotenv -e .env.test jest -i && yarn docker:down",
     "test:watch": "jest --watchAll"
   },
   "prisma": {
