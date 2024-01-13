@@ -10,7 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Checkout dotenv
-        uses: actions/dotenv-action
+        # uses: actions/dotenv-action
+          id: dotenv
+          uses: ./.github/actions/dotenv-action
       - name: Run tests
         # id: dotenv
         # uses: ./.github/actions/dotenv-action
