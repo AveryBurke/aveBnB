@@ -1,9 +1,8 @@
 name: Deploy to Vercel
 on:
-  push:
-      workflow_run:
-        workflows: [Run Tests]
-        types: [completed]
+  workflow_run:
+    workflows: [Run Tests]
+    types: [completed]
   
   # deploy:
 
