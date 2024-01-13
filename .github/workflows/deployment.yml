@@ -4,19 +4,31 @@ on:
     branches:
       - main
 jobs:
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: install dependancies
+        run: yarn install
+
+      -name: test
+        run: yarn test
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Load .env file
-        uses: xom9ikk/dotenv@v2
-        with:
-          path: ./
-          mode: test
-          load-mode: strict
-      - name: Run tests
-        run: yarn test
+    
+      # - name: Load .env file
+      #   uses: xom9ikk/dotenv@v2
+      #   with:
+      #     path: ./
+      #     mode: test
+      #     load-mode: strict
+      # - name: Run tests
+      #   run: yarn test
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
