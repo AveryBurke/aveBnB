@@ -24,11 +24,14 @@ useLoginModal.mockReturnValue({
 	onOpen: onOpenMock,
 });
 
+
 describe("useFavorite", () => {
 	it("should make a post request for the listing, if the listing is not in the user's favoritedIds", async () => {
-		const fetchMock = jest
-			.spyOn(global, "fetch")
+		const fetchMock = 
+		jest.fn()
+			// .spyOn(global, "fetch")
 			.mockImplementation(jest.fn(() => Promise.resolve({ json: () => Promise.resolve({ data: 100 }) })) as jest.Mock);
+		global.fetch = fetchMock
 		let testUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
 		const testListing = await prisma.listing.findFirst({ where: { userId: testUser?.id } });
 		if (testUser && testListing) {
