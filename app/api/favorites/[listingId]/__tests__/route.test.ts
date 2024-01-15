@@ -41,7 +41,6 @@ describe("Favorite POST", () => {
 			when(mockedRequest.json()).thenCall(returnFromJson);
 			await POST(mockedRequest, { params: { listingId } });
 			currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			console.log({ currentUser });
 			expect(currentUser?.favoriteIds.includes(listingId)).toBe(true);
 		} else {
 			expect(false, "either the test user or the test listing as not seeded to the database").toBe(true);
@@ -63,7 +62,6 @@ describe("Favorite DELETE", () => {
 			when(mockedRequest.json()).thenCall(returnFromJson);
 			await DELETE(mockedRequest, { params: { listingId } });
 			currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			console.log({ currentUser });
 			expect(currentUser?.favoriteIds.includes(listingId)).toBe(false);
 		} else {
 			expect(false, "either the test user or the test listing as not seeded to the database").toBe(true);
