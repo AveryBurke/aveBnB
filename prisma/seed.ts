@@ -1,7 +1,7 @@
 import prisma from "../app/libs/prismadb";
 import { hash } from "bcrypt";
+import { addWeeks } from "date-fns";
 
-/* && dotenv -e .env.test prisma db seed */
 (async function () {
 	prisma.user.deleteMany({});
 	prisma.listing.deleteMany({});
@@ -29,4 +29,19 @@ import { hash } from "bcrypt";
 		},
 	});
 	console.log({ testListing });
+	const startDate = new Date();
+	const testReservation = await prisma.listing.update({
+		where: { id: testListing.id },
+		data: {
+			reservations: {
+				create: {
+					startDate,
+					endDate: addWeeks(startDate, 1),
+					totalPrice: 100.1,
+					userId: testUser.id,
+				},
+			},
+		},
+	});
+	console.log({ testReservation });
 })();

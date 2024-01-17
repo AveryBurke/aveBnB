@@ -1,5 +1,15 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import UserMenu from "../userMenu";
+import { useRouter } from "next/navigation";
+
+jest.mock("next/navigation");
+
+const pushMock = jest.fn();
+
+//@ts-ignore
+useRouter.mockReturnValue({
+	push: pushMock,
+});
 
 const mockUser: UiUser = {
 	id: "",

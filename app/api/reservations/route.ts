@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { Range } from "react-date-range";
@@ -8,12 +8,13 @@ interface ReservationBody extends Range {
 	listingId: string;
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
 	const currentUser = await getCurrentUser();
 	if (!currentUser) return NextResponse.error();
 
 	const body: ReservationBody = await request.json();
 	const { startDate, endDate, listingId, totalPrice } = body;
+	console.log({ startDate, endDate, listingId, totalPrice });
 
 	if (!(startDate && endDate && listingId && currentUser.id && totalPrice)) return Response.error();
 
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
 				},
 			},
 		},
-	});	
+	});
 	return NextResponse.json(listingAndReservations);
 }
 

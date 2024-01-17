@@ -35,6 +35,7 @@ const RegistarModal = () => {
 			.then(() => {
 				toast.success("Account created!");
 				registarModal.onClose();
+				loginModal.onOpen();
 			})
 			.catch((error) => toast.error(error))
 			.finally(() => setIsLoading(false));
@@ -45,7 +46,7 @@ const RegistarModal = () => {
 			<Heading title="welcome to AveBnB" subtitle="create an account" center></Heading>
 			<Input label="email" id="email" register={register} errors={errors} />
 			<Input label="name" id="name" register={register} errors={errors} />
-			<Input label="password" id="password" register={register} errors={errors} />
+			<Input label="password" id="password" register={register} errors={errors} type="password" />
 		</div>
 	);
 
