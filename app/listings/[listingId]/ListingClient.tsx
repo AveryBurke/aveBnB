@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { eachDayOfInterval, differenceInCalendarDays } from "date-fns";
 import { categories } from "@/app/components/navbar/Categories";
-import { Reservation } from "@prisma/client";
 import Container from "@/app/components/container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
@@ -13,7 +12,7 @@ import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 
 interface ListingClientProps {
-	reservations?: Reservation[];
+	reservations?: UiReservationWithUiListing[];
 	listing: UiListingWithUiUser;
 	currentUser?: UiUser | null;
 }
@@ -52,29 +51,28 @@ const ListingClient: React.FC<ListingClientProps> = ({ reservations = [], listin
 	const onCreateReservation = useCallback(() => {
 		if (!currentUser) return loginModal.onOpen();
 		setIsLoading(true);
-		fetch(`${process.env.NEXT_PUBLIC_BASE_URL}\api\reservations`, {
+		fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ ...dateRange, listingId: listing.id }),
+			body: JSON.stringify({ ...dateRange, listingId: listing.id, totalPrice }),
 		})
 			.then(() => {
 				toast.success("Success!");
 				setDateRange(initialDateRange);
-				// redirect to /trips
-				router.push("/");
+				router.push("/trips");
 			})
 			.catch(() => toast.error("Something went wrong"))
 			.finally(() => setIsLoading(false));
-	}, [dateRange, listing.id, router, currentUser, loginModal]);
+	}, [dateRange, listing.id, router, currentUser, loginModal, totalPrice]);
 
 	useEffect(() => {
 		if (dateRange.startDate && dateRange.endDate && listing.price) {
 			const dayCount = differenceInCalendarDays(dateRange.endDate, dateRange.startDate);
 			setTotalPrice(dayCount * listing.price);
 		} else {
-			setTotalPrice(listing.price || 0);
+			setTotalPrice(listing.price);
 		}
 	}, [dateRange, listing.price]);
 

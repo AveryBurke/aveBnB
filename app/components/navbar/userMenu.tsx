@@ -4,17 +4,18 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../avatar";
 import MenuItem from "./menuItem";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import useRegisterModal from "@/app/hooks/useRegistarModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRentModal from "@/app/hooks/useRentModal";
-
 
 interface UserMenuProps {
 	user?: UiUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
+	const router = useRouter();
 	const ref = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => {
@@ -39,14 +40,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 	const handleClick = () => {
 		if (!user) return loginModal.onOpen();
 		return rentModal.onOpen();
-	}
+	};
 
 	return (
 		<div ref={ref} className="relative">
 			<div className="flex flex-row items-center gap-3">
-				<div
-					className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-					onClick={handleClick}>
+				<div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer" onClick={handleClick}>
 					AveBnB
 				</div>
 				<div
@@ -88,7 +87,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 					<div className="flex flex-col cursor-pointer">
 						{user ? (
 							<>
-								<MenuItem {...{ callback: () => {}, label: "My Trips" }} />
+								<MenuItem {...{ callback: () => router.push("/trips"), label: "My Trips" }} />
+								<MenuItem {...{ callback: () => router.push("/reservations"), label: "My Reservations" }} />
 								<MenuItem {...{ callback: () => {}, label: "My Favroites" }} />
 								<MenuItem {...{ callback: () => {}, label: "My Properties" }} />
 								<MenuItem {...{ callback: rentModal.onOpen, label: "Let AveBnB into my home" }} />

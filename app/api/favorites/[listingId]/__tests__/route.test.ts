@@ -8,21 +8,6 @@ import prisma from "@/app/libs/prismadb";
 
 const mockedRequest: NextRequest = mock(NextRequest);
 
-jest.mock("../../../../actions/getCurrentUser", () => {
-	return {
-		getCurrentUser: async (): Promise<UiUser | null | undefined> => {
-			const currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			if (!currentUser) return null;
-			return {
-				...currentUser,
-				emailVerified: currentUser.emailVerified?.toISOString() || "",
-				createdAt: currentUser.createdAt.toISOString() || "",
-				updatedAt: currentUser.updatedAt.toISOString() || "",
-			};
-		},
-	};
-});
-
 afterEach(() => {
 	reset(mockedRequest);
 });
@@ -41,7 +26,6 @@ describe("Favorite POST", () => {
 			when(mockedRequest.json()).thenCall(returnFromJson);
 			await POST(mockedRequest, { params: { listingId } });
 			currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			console.log({ currentUser });
 			expect(currentUser?.favoriteIds.includes(listingId)).toBe(true);
 		} else {
 			expect(false, "either the test user or the test listing as not seeded to the database").toBe(true);
@@ -63,7 +47,6 @@ describe("Favorite DELETE", () => {
 			when(mockedRequest.json()).thenCall(returnFromJson);
 			await DELETE(mockedRequest, { params: { listingId } });
 			currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			console.log({ currentUser });
 			expect(currentUser?.favoriteIds.includes(listingId)).toBe(false);
 		} else {
 			expect(false, "either the test user or the test listing as not seeded to the database").toBe(true);

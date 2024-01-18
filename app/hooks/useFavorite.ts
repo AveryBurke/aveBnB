@@ -35,7 +35,6 @@ export const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 							body: null,
 						});
 				} else {
-					console.log("psot request to ", `${base}/api/favorites/${listingId}`)
 					request = () =>
 						fetch(`${base}/api/favorites/${listingId}`, {
 							method: "POST",

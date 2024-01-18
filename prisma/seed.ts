@@ -1,19 +1,26 @@
 import prisma from "../app/libs/prismadb";
 import { hash } from "bcrypt";
+import { addWeeks } from "date-fns";
 
-/* && dotenv -e .env.test prisma db seed */
 (async function () {
 	prisma.user.deleteMany({});
 	prisma.listing.deleteMany({});
-	const hashPassword = await hash(process.env.TEST_USER_PASSWORD || "testpassword", 12);
+	const hashPassword = await hash(process.env.TEST_USER_PASSWORD || "", 12);
 	const testUser = await prisma.user.create({
 		data: {
-			name: process.env.TEST_USER_NAME || "Test User",
-			email: process.env.TEST_USER_EMAIL || "test@user.com",
+			name: process.env.TEST_USER_NAME || "",
+			email: process.env.TEST_USER_EMAIL || "",
 			hashPassword,
 		},
 	});
-	console.log({ testUser });
+	const testUser2 = await prisma.user.create({
+		data: {
+			name: process.env.TEST_USER_2_NAME || "",
+			email: process.env.TEST_USER_2_EMAIL || "",
+			hashPassword,
+		}
+	})
+	console.log({ testUser, testUser2 });
 	const testListing = await prisma.listing.create({
 		data: {
 			userId: testUser.id,
@@ -29,4 +36,19 @@ import { hash } from "bcrypt";
 		},
 	});
 	console.log({ testListing });
+	const startDate = new Date();
+	const testReservation = await prisma.listing.update({
+		where: { id: testListing.id },
+		data: {
+			reservations: {
+				create: {
+					startDate,
+					endDate: addWeeks(startDate, 1),
+					totalPrice: 100.1,
+					userId: testUser.id,
+				},
+			},
+		},
+	});
+	console.log({ testReservation });
 })();

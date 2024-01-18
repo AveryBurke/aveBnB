@@ -1,4 +1,4 @@
-import { User, Listing } from "@prisma/client";
+import { User, Listing, Reservation } from "@prisma/client";
 import { IconType } from "react-icons";
 
 /** utility types */
@@ -18,6 +18,9 @@ declare global {
 	/** Ui safe Listing type. All Date types are swapped with string types */
 	type UiListing = MapDbObject<Listing, Date, string>;
 
+	/** Ui safe Reservation type. All Date types are swapped with string types */
+	type UiReservation = MapDbObject<Reservation, Date, string>;
+
 	type FormatedCountry = {
 		value: string;
 		label: string;
@@ -32,11 +35,26 @@ declare global {
 		description: string;
 	};
 
-	interface IParams {
-		listingId?: string;
+	enum IParamTag {
+		listingId,
+		userId,
+		authorId,
 	}
+
+	interface TaggedIParam<Tag extends IParamTag, V> {
+		tag: Tag;
+		value: V;
+	}
+
+	interface IParams {listingId?:string}
+	
+	type IDiscriminatedUnion = TaggedIParam<IParamTag.listingId, string> | TaggedIParam<IParamTag.authorId, string> | TaggedIParam<IParamTag.userId, string>;
 
 	interface UiListingWithUiUser extends UiListing {
 		user: UiUser;
+	}
+
+	interface UiReservationWithUiListing extends UiReservation {
+		listing: UiListing;
 	}
 }

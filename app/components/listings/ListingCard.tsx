@@ -10,7 +10,7 @@ import Button from "../Button";
 
 interface ListingCardProps {
 	data: UiListing;
-	reservation?: Reservation;
+	reservation?: UiReservationWithUiListing
 	onAction?: (id: string) => void;
 	disabled?: boolean;
 	actionLabel?: string;
