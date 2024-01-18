@@ -3,11 +3,12 @@ import React from "react";
 import Container from "../container";
 import CategoryBox from "../CategoryBox";
 import { FaDumpster, FaGhost, FaHouseFire, FaBiohazard } from "react-icons/fa6";
-import { GiRadioTower, GiTank, GiBlackHoleBolas, GiUndergroundCave } from "react-icons/gi";
+import { GiRadioTower, GiBlackHoleBolas, GiUndergroundCave, GiJellyfish } from "react-icons/gi";
 import { TbRadioactiveOff } from "react-icons/tb";
 import { useSearchParams } from "next/navigation";
 import { BsHousesFill } from "react-icons/bs";
 import { SiHyperledger } from "react-icons/si";
+
 
 
 
@@ -54,9 +55,9 @@ export const categories: Category[] = [
         description: "This property has non-euclidean architecture!"
     },
     {
-        location: "War Zone",
-        icon: GiTank,
-        description: "This property is located in a war zone!"
+        location: "Under Water",
+        icon: GiJellyfish,
+        description: "This property is located deep beneath the surface of the ocean!"
     },
     {
         location: "Parallel Universe",
