@@ -5,7 +5,7 @@ This is an AirBnB clone I’m writing to teach myself Next.js and Tailwind.
 # Features
 
 ## Search all your favorite familiar AirBnB categories!
-![categories](./readme_images/AveBnB_categories.png)
+![categories](./readme_images/AveBnB_categories_2.png)
 
 ## Post your properties!
 ![post](./readme_images//upload_place.png)
