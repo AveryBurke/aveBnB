@@ -17,6 +17,5 @@ export async function DELETE(request: NextRequest, { params }: { params: Reserva
 			OR: [{ userId: currentUser.id }, { listing: { userId: currentUser.id } }],
 		},
 	});
-
 	return NextResponse.json(reservations);
 }

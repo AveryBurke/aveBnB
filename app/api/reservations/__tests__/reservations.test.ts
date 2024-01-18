@@ -9,21 +9,6 @@ import { addWeeks } from "date-fns";
 
 const mockedRequest: NextRequest = mock(NextRequest);
 
-jest.mock("../../../actions/getCurrentUser", () => {
-	return {
-		getCurrentUser: async (): Promise<UiUser | null | undefined> => {
-			const currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-			if (!currentUser) return null;
-			return {
-				...currentUser,
-				emailVerified: currentUser.emailVerified?.toISOString() || "",
-				createdAt: currentUser.createdAt.toISOString() || "",
-				updatedAt: currentUser.updatedAt.toISOString() || "",
-			};
-		},
-	};
-});
-
 afterEach(() => {
 	reset(mockedRequest);
 });
@@ -33,7 +18,7 @@ afterAll(async () => {
 	let currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
 	const listing = await prisma.listing.findFirst({ where: { userId: currentUser?.id } });
 	const reservations = await prisma.reservation.findMany({ where: { listingId: listing?.id }, orderBy: { createdAt: "desc" } });
-    await prisma.reservation.delete({where:{id:reservations[0].id}})
+	await prisma.reservation.delete({ where: { id: reservations[0].id } });
 });
 
 describe("Reservations POST", () => {
@@ -56,24 +41,3 @@ describe("Reservations POST", () => {
 		}
 	});
 });
-
-// describe("Favorite DELETE", () => {
-// 	it("should remove the listing from the current user's favoritedIds", async () => {
-// 		let currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-// 		const listing = await prisma.listing.findFirst({ where: { userId: currentUser?.id } });
-// 		if (listing) {
-// 			const listingId = listing.id;
-// 			const returnFromJson = () => {
-// 				return new Promise<any>((resolve, reject) => {
-// 					resolve({ listingId });
-// 				});
-// 			};
-// 			when(mockedRequest.json()).thenCall(returnFromJson);
-// 			await DELETE(mockedRequest, { params: { listingId } });
-// 			currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-// 			expect(currentUser?.favoriteIds.includes(listingId)).toBe(false);
-// 		} else {
-// 			expect(false, "either the test user or the test listing as not seeded to the database").toBe(true);
-// 		}
-// 	});
-// });

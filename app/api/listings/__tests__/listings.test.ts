@@ -8,13 +8,6 @@ import prisma from "@/app/libs/prismadb";
 
 const mockedRequest: NextRequest = mock(NextRequest);
 
-jest.mock("../../../actions/getCurrentUser", () => {
-	return {
-		//get the test user from seeded into the test db
-		getCurrentUser: async () => await prisma.user.findUnique({ where: { email: "test@user.com" } }),
-	};
-});
-
 afterEach(() => {
 	reset(mockedRequest);
 });

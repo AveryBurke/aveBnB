@@ -8,7 +8,7 @@ const page = async () => {
 	if (!currentUser) return <EmptyState title="you are not logged in" subtitle="please login" />;
 	const reservations = await getReservations({ tag: 2, value: currentUser.id });
 	if (reservations.length === 0)
-		return <EmptyState title="No reservations found" subtitle="it looks like you don't have any reservations on your properties" />;
+		return <EmptyState data-testid="empty_listings" title="No reservations found" subtitle="it looks like you don't have any reservations on your properties" />;
 	return <ReservationsClient {...{ reservations, currentUser }} />;
 };
 
