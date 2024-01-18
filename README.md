@@ -2,19 +2,29 @@
 
 This is an AirBnB clone I’m writing to teach myself Next.js and Tailwind.
 
-# Features
+## Features
 
-## Search all your favorite familiar AirBnB categories!
+### Stack
+
+* Next.js 14
+* Tailwind
+* Prisma
+* Auth.js
+* PostgreSQL
+* CI/CD with Github Actions
+
+### Search all your favorite familiar AirBnB categories!
 ![categories](./readme_images/AveBnB_categories_2.png)
 
-## Post your properties!
+### Upload your properties!
 ![post](./readme_images//upload_place.png)
 
-## CI/CD with Github Actions
+### Book reservations!
+![reservation](./readme_images/reserve.png)
 
-# Tests
+### Tests
 
-`Yarn test` to run unit and integration tests. E2E coming soon.
+Run `Yarn test` for unit and integration tests. E2E coming soon.
 
 # Getting Started
 
