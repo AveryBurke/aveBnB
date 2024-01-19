@@ -46,8 +46,14 @@ declare global {
 		value: V;
 	}
 
-	interface IParams {listingId?:string}
-	
+	interface IParams {
+		listingId?: string;
+	}
+
+	interface IListingParams {
+		userId?: string;
+	}
+
 	type IDiscriminatedUnion = TaggedIParam<IParamTag.listingId, string> | TaggedIParam<IParamTag.authorId, string> | TaggedIParam<IParamTag.userId, string>;
 
 	interface UiListingWithUiUser extends UiListing {
