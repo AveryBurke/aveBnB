@@ -90,7 +90,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
 								<MenuItem {...{ callback: () => router.push("/trips"), label: "My Trips" }} />
 								<MenuItem {...{ callback: () => router.push("/reservations"), label: "My Reservations" }} />
 								<MenuItem {...{ callback: () => router.push("/favorites"), label: "My Favroites" }} />
-								<MenuItem {...{ callback: () => {}, label: "My Properties" }} />
+								<MenuItem {...{ callback: () => router.push("/properties"), label: "My Properties" }} />
 								<MenuItem {...{ callback: rentModal.onOpen, label: "Let AveBnB into my home" }} />
 								<MenuItem {...{ callback: signOut, label: "sign out" }} />
 							</>

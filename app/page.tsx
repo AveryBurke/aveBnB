@@ -3,8 +3,12 @@ import EmptyState from "./components/EmptyState";
 import getListings from "@/app/actions/getListings";
 import ListingCard from "./components/listings/ListingCard";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
-export default async function Home() {
-	const listings = await getListings();
+import React from "react";
+interface HomeProps {
+	searchParams: IListingParams;
+}
+const Home: React.FC<HomeProps> = async ({ searchParams }) => {
+	const listings = await getListings(searchParams);
 	if (listings.length === 0) return <EmptyState showReset />;
 	//NOTE there is some prop drilling regarding the current user. I want to correct this
 	//one idea is to get the current user from the hooks that use it
@@ -20,4 +24,6 @@ export default async function Home() {
 			</Container>
 		</main>
 	);
-}
+};
+
+export default Home;
