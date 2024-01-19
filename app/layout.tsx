@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/navbar";
 import RegistarModal from "./components/modals/RegistarModal";
 import LoginModal from "./components/modals/LoginModal";
 import RentModal from "./components/modals/RentModal";
+import SearchModal from './components/modals/SearchModal';
 import { getCurrentUser } from "./actions/getCurrentUser";
 import ToastProvider from "./providers/ToastProivder";
 // const inter = Inter({ subsets: ['latin'] })
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang="en">
 			<body className={jbm.className}>
 				<ToastProvider />
+				<SearchModal />
 				<LoginModal />
 				<RegistarModal />
 				<RentModal />

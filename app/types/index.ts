@@ -52,6 +52,13 @@ declare global {
 
 	interface IListingParams {
 		userId?: string;
+		guestCount?: number
+		bathroomCount?: number,
+		roomCount?: number,
+		locationValue?: string,
+		startDate?: string,
+		endDate?: string,
+		category?: string
 	}
 
 	type IDiscriminatedUnion = TaggedIParam<IParamTag.listingId, string> | TaggedIParam<IParamTag.authorId, string> | TaggedIParam<IParamTag.userId, string>;
