@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { IoMdClose } from "react-icons/io";
 import Button from "../Button";
-import useClickOutside from "@/app/hooks/useClickOutside";
+// import useClickOutside from "@/app/hooks/useClickOutside";
 
 interface ModalProps {
 	isOpen?: boolean;
@@ -19,7 +19,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isOpen, title, actionLabel, onSubmit, onClose, body, footer, disabled, secondaryAction, secondaryActionLabel }) => {
 	const [showModal, setShowModal] = useState(isOpen);
-	const ref = useClickOutside<HTMLDivElement>(() => onClose(), 301);
+	// const ref = useClickOutside<HTMLDivElement>(() => onClose(), 301);
 	useEffect(() => {
 		setShowModal(isOpen);
 	}, [isOpen]);

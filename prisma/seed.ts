@@ -24,12 +24,12 @@ import { addWeeks } from "date-fns";
 	const testListing = await prisma.listing.create({
 		data: {
 			userId: testUser.id,
-			description: "test listing description",
+			description: process.env.TEST_LISTING_DESCRIPTION || "",
 			price: 100,
-			locationValue: "AB",
-			title: "test listing",
+			locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
+			title: process.env.TEST_LISTING_TITLE || "",
 			imageSrc: "",
-			category: "test category",
+			category: process.env.TEST_CATEGORY || "",
 			roomCount: 3,
 			bathroomCount: 3,
 			guestCount: 3,

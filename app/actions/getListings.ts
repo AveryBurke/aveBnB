@@ -3,7 +3,7 @@ import prisma from "@/app/libs/prismadb";
 export default async function getListings(params: IListingParams): Promise<UiListing[]> {
 	try {
 		const { userId, roomCount, bathroomCount, guestCount, locationValue, startDate, endDate, category } = params;
-		console.log(params)
+
 		let query: any = { };
 
 		if (userId) {
@@ -43,7 +43,6 @@ export default async function getListings(params: IListingParams): Promise<UiLis
 				},
 			};
 		}
-		console.log({query})
 		const listings = await prisma.listing.findMany({
 			where: query,
 			orderBy: {
