@@ -5,6 +5,7 @@ export default function useClickOutside<T extends HTMLElement>(callback: () => v
 	const handleClick = useCallback(
 		(e: MouseEvent) => {
 			if (ref.current && !ref.current.contains(e.target as Node)) {
+				console.log("click")
 				callback();
 			}
 		},
