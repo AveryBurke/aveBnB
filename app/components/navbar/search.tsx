@@ -3,7 +3,7 @@ import React from "react";
 import { BiSearch } from "react-icons/bi";
 import useSeachModal from "@/app/hooks/useSearchModal";
 
-const search = () => {
+const search:React.FC = () => {
 	const searchModal = useSeachModal();
 	return (
 		<div data-testid="search" className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
