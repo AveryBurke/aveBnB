@@ -18,8 +18,8 @@ import { addWeeks } from "date-fns";
 			name: process.env.TEST_USER_2_NAME || "",
 			email: process.env.TEST_USER_2_EMAIL || "",
 			hashPassword,
-		}
-	})
+		},
+	});
 	console.log({ testUser, testUser2 });
 	const testListing = await prisma.listing.create({
 		data: {
@@ -30,9 +30,9 @@ import { addWeeks } from "date-fns";
 			title: process.env.TEST_LISTING_TITLE || "",
 			imageSrc: "",
 			category: process.env.TEST_CATEGORY || "",
-			roomCount: 3,
-			bathroomCount: 3,
-			guestCount: 3,
+			roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
+			bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+			guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
 		},
 	});
 	console.log({ testListing });

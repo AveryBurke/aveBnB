@@ -28,6 +28,9 @@ describe("getLIstings", () => {
 			const lsitings = await getListings({
 				startDate: startDate.toISOString(),
 				endDate: endDate.toISOString(),
+				bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+				guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
+				roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
 				locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
 				category: process.env.TEST_CATEGORY || "",
 				userId: user?.id,
@@ -45,6 +48,119 @@ describe("getLIstings", () => {
 		it("Should return the test listing by location", async () => {
 			const lsitings = await getListings({ locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "" });
 			expect(lsitings.length).not.toEqual(0);
+		});
+
+		it("should filter out by location, even though the rest of the params match", async () => {
+			const user = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+			const lsitings = await getListings({
+				locationValue: "ZZ",
+				bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+				guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
+				roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
+				category: process.env.TEST_CATEGORY || "",
+				userId: user?.id,
+			});
+			expect(lsitings.length).toEqual(0);
+		});
+	});
+
+	describe("filter by category", () => {
+		it("should filter out the test listing, by category", async () => {
+			const lsitings = await getListings({ category: "wrong category" });
+			expect(lsitings.length).toEqual(0);
+		});
+
+		it("Should return the test listing by categry", async () => {
+			const lsitings = await getListings({ category: process.env.TEST_CATEGORY || "" });
+			expect(lsitings.length).not.toEqual(0);
+		});
+
+		it("should filter out by category, even though the rest of the params match", async () => {
+			const user = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+			const lsitings = await getListings({
+				locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
+				bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+				guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
+				roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
+				category: "wrong category",
+				userId: user?.id,
+			});
+			expect(lsitings.length).toEqual(0);
+		});
+	});
+
+	describe("filter by room count", () => {
+		it("Should return the test listing by room count", async () => {
+			const lsitings = await getListings({ roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0 });
+			expect(lsitings.length).not.toEqual(0);
+		});
+
+		it("should filter out the test listing, by room count", async () => {
+			const lsitings = await getListings({ roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT + 10 : 0 });
+			expect(lsitings.length).toEqual(0);
+		});
+
+		it("should filter out by room count, even though the rest of the params match", async () => {
+			const user = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+			const lsitings = await getListings({
+				locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
+				bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+				guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
+				roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT + 10 : 0,
+				category: process.env.TEST_CATEGORY || "",
+				userId: user?.id,
+			});
+			expect(lsitings.length).toEqual(0);
+		});
+	});
+
+	describe("filter by bathroom count", () => {
+		it("Should return the test listing by bathroom count", async () => {
+			const lsitings = await getListings({ bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0 });
+			expect(lsitings.length).not.toEqual(0);
+		});
+
+		it("should filter out the test listing, by bathroom count", async () => {
+			const lsitings = await getListings({ bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT + 10 : 0 });
+			expect(lsitings.length).toEqual(0);
+		});
+
+		it("should filter out by bathroom count, even though the rest of the params match", async () => {
+			const user = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+			const lsitings = await getListings({
+				locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
+				bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT + 10 : 0,
+				guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0,
+				roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
+				category: process.env.TEST_CATEGORY || "",
+				userId: user?.id,
+			});
+			expect(lsitings.length).toEqual(0);
+		});
+
+		describe("filter by guest count", () => {
+			it("Should return the test listing by guest count", async () => {
+				const lsitings = await getListings({ guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT : 0 });
+				expect(lsitings.length).not.toEqual(0);
+			});
+
+			it("should filter out the test listing, by guest count", async () => {
+				const lsitings = await getListings({ guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT + 10 : 0 });
+				expect(lsitings.length).toEqual(0);
+			});
+
+			it("should filter out by guest count, even though the rest of the params match", async () => {
+				const user = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+				const lsitings = await getListings({
+					locationValue: process.env.TEST_LISTING_LOCATION_VALUE || "",
+					bathroomCount: process.env.TEST_LISTING_BATHROOM_COUNT ? +process.env.TEST_LISTING_BATHROOM_COUNT : 0,
+					guestCount: process.env.TEST_LISTING_GUEST_COUNT ? +process.env.TEST_LISTING_GUEST_COUNT + 10 : 0,
+					roomCount: process.env.TEST_LISTING_ROOM_COUNT ? +process.env.TEST_LISTING_ROOM_COUNT : 0,
+					category: process.env.TEST_CATEGORY || "",
+					userId: user?.id,
+				});
+				expect(lsitings.length).toEqual(0);
+			});
 		});
 	});
 });
