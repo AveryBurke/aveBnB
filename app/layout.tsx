@@ -28,9 +28,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					<LoginModal />
 					<RegistarModal />
 					<RentModal />
+					<Navbar user={currentUSer} />
 				</HydrationBoundary>
-				<Navbar user={currentUSer} />
-				{children}
+				<div className="pb-20 pt-28">{children}</div>
 			</body>
 		</html>
 	);
