@@ -5,9 +5,10 @@ import Navbar from "./components/navbar/navbar";
 import RegistarModal from "./components/modals/RegistarModal";
 import LoginModal from "./components/modals/LoginModal";
 import RentModal from "./components/modals/RentModal";
-import SearchModal from './components/modals/SearchModal';
+import SearchModal from "./components/modals/SearchModal";
 import { getCurrentUser } from "./actions/getCurrentUser";
 import ToastProvider from "./providers/ToastProivder";
+import HydrationBoundary from "./components/HydrationBoundry";
 // const inter = Inter({ subsets: ['latin'] })
 const jbm = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -21,12 +22,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en">
 			<body className={jbm.className}>
-				<ToastProvider />
-				<SearchModal />
-				<LoginModal />
-				<RegistarModal />
-				<RentModal />
-				<Navbar user = {currentUSer}/>
+				<HydrationBoundary>
+					<ToastProvider />
+					<SearchModal />
+					<LoginModal />
+					<RegistarModal />
+					<RentModal />
+				</HydrationBoundary>
+				<Navbar user={currentUSer} />
 				{children}
 			</body>
 		</html>
