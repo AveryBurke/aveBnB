@@ -6,7 +6,7 @@ interface  hydrationBoundaryProps {
 	children: React.ReactNode;
 }
 
-const  hydrationBoundary: React.FC< hydrationBoundaryProps> = ({ children }) => {
+const  HydrationBoundary: React.FC< hydrationBoundaryProps> = ({ children }) => {
 	const [hasMounted, setHasMounted] = useState(false);
 
 	useEffect(() => {
@@ -18,4 +18,4 @@ const  hydrationBoundary: React.FC< hydrationBoundaryProps> = ({ children }) => 
 	return <>{children}</>;
 };
 
-export default  hydrationBoundary;
+export default  HydrationBoundary;
