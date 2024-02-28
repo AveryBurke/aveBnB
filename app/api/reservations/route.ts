@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
 
 	const body: ReservationBody = await request.json();
 	const { startDate, endDate, listingId, totalPrice } = body;
-	console.log({ startDate, endDate, listingId, totalPrice });
 
 	if (!(startDate && endDate && listingId && currentUser.id && totalPrice)) return Response.error();
 
