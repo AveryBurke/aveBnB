@@ -1,8 +1,8 @@
 import prisma from "@/app/libs/prismadb";
 
 export default async function getListings(params: IListingParams): Promise<UiListing[]> {
+	const { userId, roomCount, bathroomCount, guestCount, locationValue, startDate, endDate, category } = params;
 	try {
-		const { userId, roomCount, bathroomCount, guestCount, locationValue, startDate, endDate, category } = params;
 		let query: any = { };
 
 		if (userId) {
