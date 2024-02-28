@@ -8,6 +8,7 @@ interface HomeProps {
 	searchParams: IListingParams;
 }
 const Home: React.FC<HomeProps> = async ({ searchParams }) => {
+	console.log("searchParams", searchParams);
 	const listings = await getListings(searchParams);
 	if (listings.length === 0) return <EmptyState showReset />;
 	//NOTE there is some prop drilling regarding the current user. I want to correct this

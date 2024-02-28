@@ -64,6 +64,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                     gap-3
                     cursor-pointer 
                     hover:shadow-sm 
+					z-100
                     transtion">
 					<AiOutlineMenu />
 					<div className="hidden md:block">
