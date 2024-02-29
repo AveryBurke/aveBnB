@@ -42,7 +42,7 @@ export default async function getListings(params: IListingParams): Promise<UiLis
 				},
 			};
 		}
-		// console.log("query", query);
+
 		const listings = await prisma.listing.findMany({
 			where: query,
 			orderBy: {
