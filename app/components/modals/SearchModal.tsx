@@ -67,7 +67,6 @@ const SearchModal = () => {
 			},
 			{ skipNull: true }
 		);
-		console.log({ url });
 		setStep(0);
 		onClose();
 		router.push(url);
