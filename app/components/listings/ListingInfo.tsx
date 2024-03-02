@@ -40,6 +40,6 @@ const ListingInfo: React.FC<ListingInfoProps> = ({ user, roomCount, bathroomCoun
 			{coords && <Map center={coords} zoom={8} />}
 		</div>
 	);
-};
+};	
 
 export default ListingInfo;

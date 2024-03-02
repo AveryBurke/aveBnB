@@ -33,20 +33,19 @@ export async function POST(request: NextRequest) {
 	return NextResponse.json(listingAndReservations);
 }
 
-// export async function DELETE(request: Request, { params }: { params: IParams }) {
-// 	const currentUser = await getCurrentUser();
-// 	if (!currentUser) return NextResponse.error();
+export async function DELETE(request: Request, params: { reservationId: string }) {
 
-// 	const { listingId } = params;
+	console.log("deleting reservation", params.reservationId);
+	const currentUser = await getCurrentUser();
+	if (!currentUser) return NextResponse.error();
 
-// 	if (!listingId || typeof listingId !== "string") throw new Error("Invalid Id");
+	const { reservationId } = params;
 
-// 	let favoriteIds = currentUser.favoriteIds.filter((id) => id !== listingId);
+	if (!reservationId || typeof reservationId !== "string") throw new Error("Invalid Id");
 
-// 	const user = await prisma.user.update({
-// 		where: { id: currentUser.id },
-// 		data: { favoriteIds },
-// 	});
+	const reservation = await prisma.reservation.delete({
+		where: { id: reservationId },
+	});
 
-// 	return NextResponse.json(user);
-// }
+	return NextResponse.json(reservation);
+}

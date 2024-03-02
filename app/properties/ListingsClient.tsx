@@ -5,6 +5,7 @@ import Heading from "../components/modals/Heading";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ListingCard from "../components/listings/ListingCard";
+import { id } from "date-fns/locale";
 
 interface TripsClientProps {
 	listings: UiListing[];
@@ -35,6 +36,10 @@ const TripsClient: React.FC<TripsClientProps> = ({ listings, currentUser }) => {
 		[router]
 	);
 
+	const onListingClick = useCallback((id: string) => {
+		router.push(`/listings/edit/${id}`);
+	}, [router])
+
 	return (
 		<Container>
 			<Heading title="List of your properties" />
@@ -45,9 +50,11 @@ const TripsClient: React.FC<TripsClientProps> = ({ listings, currentUser }) => {
 						data={listing}
 						actionId={listing.id}
 						onAction={onCancel}
+						onClick={onListingClick}
 						disabled={deletingId === listing.id}
 						actionLabel="Remove Property"
 						currentUser={currentUser}
+						showHeart={false}
 					/>
 				))}
 			</div>
