@@ -43,7 +43,10 @@ const ListingClient: React.FC<ListingClientProps> = ({ reservations = [], listin
 					router.refresh();
 				})
 				.catch(() => toast.error("something went wrong"))
-				.finally(() => setIsDeleting(false));
+				.finally(() => {
+					setSelectedReservation(null);
+					setIsDeleting(false);
+				});
 		},
 		[router]
 	);
