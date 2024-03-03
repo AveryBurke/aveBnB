@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: Request, params: { reservationId: string }) {
 
-	console.log("deleting reservation", params.reservationId);
 	const currentUser = await getCurrentUser();
 	if (!currentUser) return NextResponse.error();
 
