@@ -27,35 +27,62 @@ const ListingClient: React.FC<ListingClientProps> = ({ reservations = [], listin
 
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [selectedReservation, setSelectedReservation] = useState<string | null>(null);
+	const [selectedUser, setSelectedUser] = useState<string | null>(null);
+	const [selectedTimeRange, setSelectedTimeRange] = useState<string | null>(null);
 
-	const onDeleteReservation = useCallback(
-		(id: string) => {
-			setIsDeleting(true);
-			fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/${id}`, {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: null,
+	const onDeleteReservation = useCallback(() => {
+		setIsDeleting(true);
+		fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/${selectedReservation}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: null,
+		})
+			.then(() => {
+				toast.success("Reservation deleted");
+				router.refresh();
 			})
-				.then(() => {
-					toast.success("Reservation deleted");
-					router.refresh();
-				})
-				.catch(() => toast.error("something went wrong"))
-				.finally(() => {
-					setSelectedReservation(null);
-					setIsDeleting(false);
+			.catch(() => toast.error("something went wrong"))
+			.then(() => {
+				fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						sender: currentUser?.email,
+						username: selectedUser,
+						timeRange: selectedTimeRange,
+						property: title,
+					}),
 				});
-		},
-		[router]
-	);
+			})
+			.catch(() => toast.error("there was a problem sending email to the user who placed this reservation"))
+			.finally(() => {
+				setSelectedReservation(null);
+				setIsDeleting(false);
+			});
+	}, [
+		router,
+		currentUser,
+		selectedUser,
+		selectedTimeRange,
+		selectedReservation,
+		title,
+		setSelectedReservation,
+		setIsDeleting,
+		setSelectedUser,
+		setSelectedTimeRange,
+	]);
 
 	const onReservationClick = useCallback(
-		(id: string) => {
+		(id: string, username: string, timeRange: string) => {
 			setSelectedReservation(id);
+			setSelectedUser(username);
+			setSelectedTimeRange(timeRange);
 		},
-		[router, setSelectedReservation]
+		[router, setSelectedReservation, setSelectedTimeRange, setSelectedUser]
 	);
 
 	return (
@@ -75,7 +102,7 @@ const ListingClient: React.FC<ListingClientProps> = ({ reservations = [], listin
 											<ReservationCard
 												key={reservation.id}
 												reservation={reservation}
-												onClick={onReservationClick}
+												onClick={(id: string, username: string, timeRange: string) => onReservationClick(id, username, timeRange)}
 												selected={selectedReservation === reservation.id}
 											/>
 										);
@@ -83,7 +110,7 @@ const ListingClient: React.FC<ListingClientProps> = ({ reservations = [], listin
 								</div>
 							</div>
 							{reservations.length > 0 && selectedReservation && (
-								<Button label="Delete Reservation" icon={BsTrash3} onClick={() => onDeleteReservation(selectedReservation)} disabled={isDeleting} />
+								<Button label="Delete Reservation" icon={BsTrash3} onClick={() => onDeleteReservation()} disabled={isDeleting} />
 							)}
 						</div>
 					</div>

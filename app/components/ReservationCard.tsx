@@ -4,7 +4,7 @@ import getUserInfo from "@/app/actions/getUserInfo";
 
 interface ReservationCardProps {
 	reservation: UiReservation;
-	onClick: (id: string) => void;
+	onClick: (id: string, username: string, timeRange: string) => void;
 	selected?: boolean;
 }
 
@@ -13,16 +13,15 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
 	onClick,
 	selected = false,
 }) => {
+	const [userName, setUserName] = useState<string>("Unknown user");
 
-    const [userName, setUserName] = useState<string>("Unknown user");
+	useEffect(() => {
+		getUserInfo(userId).then((user) => {
+			console.log("user", user);
+			setUserName(user?.name || "Unknown user");
+		});
+	}, [userId]);
 
-    useEffect(() => {
-        getUserInfo(userId).then((user) => {
-            console.log("user", user);
-            setUserName(user?.name || "Unknown user");
-        });
-    }, [userId]);
-    
 	const durationLable = useMemo(() => {
 		const start = new Date(startDate as string);
 		const end = new Date(endDate as string);
@@ -40,7 +39,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
 
 	return (
 		<div
-			onClick={() => onClick(id)}
+			onClick={() => onClick(id, userLabel, durationLable)}
 			className={
 				"flex flex-col rounded-xl border-2 hover:border-black p-4 cursor-pointer gap-3 transition " + (selected ? "border-black" : "border-neutral-200")
 			}>
