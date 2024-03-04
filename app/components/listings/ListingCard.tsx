@@ -12,13 +12,15 @@ interface ListingCardProps {
 	data: UiListing;
 	reservation?: UiReservationWithUiListing
 	onAction?: (id: string) => void;
+	onClick?: (id: string) => void;
+	showHeart?: boolean;
 	disabled?: boolean;
 	actionLabel?: string;
 	actionId?: string;
 	currentUser?: UiUser | null;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, disabled, actionId = "", actionLabel, currentUser }) => {
+const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, onClick, disabled, actionId = "", actionLabel, currentUser, showHeart = true }) => {
 	const router = useRouter();
 	const { getByValue } = useCountries();
 	const location = getByValue(data.locationValue);
@@ -44,7 +46,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
 	}, [reservation]);
 
 	return (
-		<div onClick={() => router.push(`/listings/${data.id}`)} className="col-span-1 cursor-pointer group">
+		<div onClick={() => onClick ? onClick(data.id) : router.push(`/listings/${data.id}`)} className="col-span-1 cursor-pointer group">
 			<div className="flex flex-col gap-2 w-full">
 				<div className="aspect-square w-full relative overflow-hidden rounded-xl">
 					<Image
@@ -62,7 +64,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
 						className="object-cover w-full group-hover:scale-110 transition"
 					/>
 					<div className="absolute top-3 right-3">
-						<HeartButton listingId={data.id} currentUser={currentUser} />
+						{showHeart && <HeartButton listingId={data.id} currentUser={currentUser} />}
 					</div>
 				</div>
 				<div className="font-semibold text-lg">

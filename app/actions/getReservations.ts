@@ -1,5 +1,10 @@
 import prisma from "@/app/libs/prismadb";
 
+/**
+ * get reservations by listingId, userId, or listingUserId
+ * @param params a discriminated union of the possible query parameters: listingId, userId, or listingUserId with their respective values
+ * @returns an array of reservations with their respective listing
+ */
 export default async function getReservations(params: IDiscriminatedUnion): Promise<UiReservationWithUiListing[]> {
 	try {
 		const { tag, value } = params;
