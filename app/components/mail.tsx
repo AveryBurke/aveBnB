@@ -7,7 +7,7 @@ interface EmailProps {
 	property?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
 export const EmailTemplatel: React.FC<Readonly<EmailProps>> = ({ username, timeRange, property }) => (
 	<Html>
