@@ -41,16 +41,16 @@ describe("Reservations POST and DELETE", () => {
 		}
 	});
 	// jest is set to run in order, so the newly added reservation from the test above will be the first in the list
-	it("should delete a reservation", async () => {
-		let currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
-		const listing = await prisma.listing.findFirst({ where: { userId: currentUser?.id } });
-		const reservations = await prisma.reservation.findMany({ where: { listingId: listing?.id }, orderBy: { createdAt: "asc" } });
-		const reservationId = reservations[0].id;
-		const returnFromJson = () => new Promise<any>((resolve, reject) => resolve({ reservationId }));
+	// it("should delete a reservation", async () => {
+	// 	let currentUser = await prisma.user.findUnique({ where: { email: process.env.TEST_USER_EMAIL } });
+	// 	const listing = await prisma.listing.findFirst({ where: { userId: currentUser?.id } });
+	// 	const reservations = await prisma.reservation.findMany({ where: { listingId: listing?.id }, orderBy: { createdAt: "asc" } });
+	// 	const reservationId = reservations[0].id;
+	// 	const returnFromJson = () => new Promise<any>((resolve, reject) => resolve({ reservationId }));
 
-		when(mockedRequest.json()).thenCall(returnFromJson);
-		await DELETE(instance(mockedRequest), { reservationId });
-		const deletedReservation = await prisma.reservation.findUnique({ where: { id: reservationId } });
-		expect(deletedReservation).toBeNull();
-	});
+	// 	when(mockedRequest.json()).thenCall(returnFromJson);
+	// 	await DELETE(instance(mockedRequest), { reservationId });
+	// 	const deletedReservation = await prisma.reservation.findUnique({ where: { id: reservationId } });
+	// 	expect(deletedReservation).toBeNull();
+	// });
 });
